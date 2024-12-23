@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import RestaurantCard from './RestaurantCard'
+import RestaurantCard, { promotedLabel } from './RestaurantCard'
 import { Link } from 'react-router-dom'
 
 const Body = () => {
     const [resList, setResList] = useState([])
     const [filteredResList, setFilteredResList] = useState([])
     const [srcText, setSrcText] = useState('')
+    const RestaurantCardPromoted = promotedLabel(RestaurantCard)
     useEffect(() => {
         fetchData()
     }, [])
@@ -65,7 +66,13 @@ const Body = () => {
                         key={restaurant?.info?.id}
                         to={'/restaurants/' + restaurant?.info?.id}
                     >
-                        <RestaurantCard resData={restaurant?.info} />
+                        {restaurant?.info?.aggregatedDiscountInfoV3 ? (
+                            <RestaurantCardPromoted
+                                resData={restaurant?.info}
+                            />
+                        ) : (
+                            <RestaurantCard resData={restaurant?.info} />
+                        )}
                     </Link>
                 ))}
             </div>
