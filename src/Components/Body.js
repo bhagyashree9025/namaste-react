@@ -25,16 +25,17 @@ const Body = () => {
     }
     return (
         <div className="body">
-            <div className="search">
+            <div className="search m-4 p-4">
                 <input
                     type="search"
-                    className="search-box"
+                    className="border border-solid border-black"
                     value={srcText}
                     onChange={(e) => {
                         setSrcText(e.target.value)
                     }}
                 />
                 <button
+                    className="px-4 py-2 bg-green-100 m-4 rounded-lg"
                     onClick={() => {
                         const filteredList = resList.filter((list) => {
                             return list?.info?.name
@@ -47,9 +48,8 @@ const Body = () => {
                     Search
                 </button>
                 <button
-                    className="button-rating"
+                    className="px-4 py-2 bg-gray-100 m-4 rounded-lg"
                     onClick={() => {
-                        console.log('Bhagya', resList)
                         const filteredList = resList.filter((list) => {
                             return list?.info?.avgRating >= 4.5
                         })
@@ -59,7 +59,7 @@ const Body = () => {
                     Top Rated Restaurants
                 </button>
             </div>
-            <div className="res-container">
+            <div className="flex flex-wrap">
                 {filteredResList.map((restaurant) => (
                     <Link
                         key={restaurant?.info?.id}
