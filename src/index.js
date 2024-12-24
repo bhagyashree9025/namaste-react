@@ -1,4 +1,10 @@
-import React, { lazy, Suspense } from 'react'
+import React, {
+    lazy,
+    Suspense,
+    useDeferredValue,
+    useEffect,
+    useState,
+} from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
@@ -9,16 +15,25 @@ import Cart from './Components/Cart'
 import Error from './Components/Error'
 import Body from './Components/Body'
 import RestaurantMenu from './Components/RestaurantMenu'
+import UserContext from './utils/UserContext'
 // import Grocery from './Components/Grocery'
 const AboutUs = lazy(() => import('./Components/AboutUs'))
 const Grocery = lazy(() => import('./Components/Grocery'))
 
 function AppLayout() {
+    const [userName, setUserName] = useState()
+    useEffect(() => {
+        //API to get name
+        const name = 'VeeyaReeya'
+        setUserName(name)
+    }, [])
     return (
-        <div>
-            <Header />
-            <Outlet />
-        </div>
+        <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+            <div>
+                <Header />
+                <Outlet />
+            </div>
+        </UserContext.Provider>
     )
 }
 

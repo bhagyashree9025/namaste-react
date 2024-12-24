@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import RestaurantCard, { promotedLabel } from './RestaurantCard'
 import { Link } from 'react-router-dom'
+import UserContext from '../utils/UserContext'
 
 const Body = () => {
     const [resList, setResList] = useState([])
     const [filteredResList, setFilteredResList] = useState([])
     const [srcText, setSrcText] = useState('')
     const RestaurantCardPromoted = promotedLabel(RestaurantCard)
+    const { loggedInUser, setUserName } = useContext(UserContext)
     useEffect(() => {
         fetchData()
     }, [])
@@ -59,6 +61,13 @@ const Body = () => {
                 >
                     Top Rated Restaurants
                 </button>
+                <label>UserName:</label>
+                <input
+                    type="textbox"
+                    className="border-black m-2 p-2 border"
+                    value={loggedInUser}
+                    onChange={(e) => setUserName(e.target.value)}
+                ></input>
             </div>
             <div className="flex flex-wrap">
                 {filteredResList.map((restaurant) => (
